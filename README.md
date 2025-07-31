@@ -40,7 +40,7 @@ A sleek, responsive, and customizable dashboard for developers. Built with React
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/dev-dashboard.git
+git clone https://github.com/TooFam0us/dev-dashboard.git
 cd dev-dashboard
 ```
 
