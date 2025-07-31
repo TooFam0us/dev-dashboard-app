@@ -2,7 +2,7 @@
 
 A sleek, responsive, and customizable dashboard for developers. Built with React, TypeScript, Vite, and Tailwind CSS — includes light/dark mode toggle, GitHub profile lookup, tech news, and system info widgets.
 
-![screenshot](.dev-dashboard\src\screenshots\Screenshot 2025-07-31 135033.png)
+![screenshot](https://github.com/TooFam0us/dev-dashboard-app/blob/main/src/screenshots/Screenshot%202025-07-31%20135033.png)
 
 ---
 
@@ -92,7 +92,7 @@ Deployed via [Vercel](https://vercel.com).
 
 ## 📄 License
 
-[GNU](LICENSE)
+[GNU](https://github.com/TooFam0us/dev-dashboard-app/blob/main/LICENSE)
 
 ---
 
