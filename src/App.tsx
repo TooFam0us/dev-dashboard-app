@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { motion } from 'framer-motion';
 import GitHubWidget from "./components/GitHubWidget";
 import NewsWidget from "./components/NewsWidget";
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
       <header className="w-full py-4 px-6 bg-gray-100 dark:bg-gray-800 shadow-sm flex justify-between items-center">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Developer's Dashboard</h1>
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Developer Dashboard</h1>
       </header>
       <div className="w-full px-4 mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
 

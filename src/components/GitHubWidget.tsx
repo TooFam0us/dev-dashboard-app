@@ -1,4 +1,4 @@
-import {use, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import { motion } from 'framer-motion';
 
 
@@ -10,10 +10,6 @@ interface GitHubUser {
     public_repos: number;
     followers: number;
     bio: string;
-}
-
-interface Props{
-    username: string;
 }
 
 export default function GitHubWidget({username}: {username: string}) {
@@ -37,8 +33,12 @@ export default function GitHubWidget({username}: {username: string}) {
 
                 const data: GitHubUser = await res.json();
                 setUser(data);
-            } catch (err:any) {
-                setError(err.message || "An unxepected error occurred");
+            } catch (err) {
+                setError(
+                    err && typeof err === "object" && "message" in err
+                        ? String((err as { message: unknown }).message)
+                        : "An unexpected error occurred"
+                );
             } finally {
                 setLoading(false);
             }

@@ -1,6 +1,6 @@
 export default function SystemStatusWidget(){
     const cores = navigator.hardwareConcurrency || "N/A";
-    const memory = (navigator as any).deviceMemory ?? "Unavailable";
+    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? "Unavailable";
     const platform = navigator.platform;
     const userAgent = navigator.userAgent;
 
