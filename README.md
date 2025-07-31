@@ -75,7 +75,7 @@ src/
 
 ## 🌐 Live Demo
 
-> [🔗 View the live site here](https://your-dashboard.vercel.app)
+> [🔗 View the live site here](https://dev-dashboard-app-rho.vercel.app/)
 
 Deployed via [Vercel](https://vercel.com).
 
