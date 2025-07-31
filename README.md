@@ -4,6 +4,9 @@ A sleek, responsive, and customizable dashboard for developers. Built with React
 
 ![screenshot](https://github.com/TooFam0us/dev-dashboard-app/blob/main/src/screenshots/Screenshot%202025-07-31%20135033.png)
 
+![CI](https://github.com/TooFam0us/dev-dashboard-app/actions/workflows/ci.yml/badge.svg)
+[![Vercel](https://vercel.badge)](https://vercel.com/toofam0us-projects/dev-dashboard-app)
+
 ---
 
 ## ✨ Features
