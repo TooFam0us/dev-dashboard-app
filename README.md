@@ -92,7 +92,7 @@ Deployed via [Vercel](https://vercel.com).
 
 ## 📄 License
 
-[MIT](LICENSE)
+[GNU](LICENSE)
 
 ---
 
