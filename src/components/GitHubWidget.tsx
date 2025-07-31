@@ -67,23 +67,27 @@ export default function GitHubWidget({username}: {username: string}) {
             )}
 
             {user && (
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
                     <img
                         src={user.avatar_url}
                         alt={user.login}
-                        className="w-16 h-16 rounded-full border"
+                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border shadow-sm transition-transform duration-200 hover:scale-105"
+                        style={{
+                            width: 'clamp(64px, 15vw, 96px)',
+                            height: 'clamp(64px, 15vw, 96px)',
+                        }}
                     />
                     <div>
                         <a
                             href={user.html_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-lg font-medium text-indigo-600 hover:underline"
+                            className="block text-lg font-medium text-indigo-600 hover:underline break-all"
                             >
                                 {user.login}
                             </a>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">{user.bio}</p>
-                            <p className="text-sm">
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{user.bio}</p>
+                            <p className="text-sm mt-1">
                                 📦 {user.public_repos} repos · 👥 {user.followers} followers
                             </p>
                     </div>
