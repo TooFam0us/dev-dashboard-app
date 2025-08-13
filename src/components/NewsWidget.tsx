@@ -31,7 +31,7 @@ export default function NewsWidget(){
             <h2 className="text-xl font-semibold mb-2">Top Hacker News</h2>
             <ul className="space-y-2">
                 {articles.map((article) => (
-                    <li key={article.id}>
+                    <li key={article.id ?? article.url}>
                         <a
                             href={article.url}
                             className="text-blue-600 dark:text-blue-400 hover:underline"
