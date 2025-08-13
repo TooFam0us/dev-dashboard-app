@@ -2,11 +2,10 @@ import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import NewsWidget from '../components/NewsWidget';
 
 type FetchInput = string | URL | Request;
-type FetchInit = RequestInit | undefined;
 
 beforeAll(() => {
     global.fetch = jest.fn(
-        (input: FetchInput, init?: FetchInit): Promise<Response> => {
+        (input: FetchInput): Promise<Response> => {
             let url: string;
 
             if (typeof input === 'string') {
