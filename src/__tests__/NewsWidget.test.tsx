@@ -2,42 +2,43 @@ import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import NewsWidget from '../components/NewsWidget';
 
 beforeAll(() => {
-  // Mock global.fetch
-  global.fetch = jest.fn(
-    (input: RequestInfo, init?: RequestInit) => {
-      // Normalize input to string
-      let url: string;
+    global.fetch = jest.fn(
+        (input: RequestInfo, init?: RequestInit) => {
+            let url: string;
 
-      if (typeof input === 'string') {
-        url = input;
-      } else if (input instanceof URL) {
-        url = input.toString();
-      } else {
-        url = String(input); // fallback
-      }
+        if (typeof input === 'string') {
+            url = input;
+        } else if (input instanceof URL) {
+            url = input.toString();
+        } else {
+            // input is a Request
+            url = input.url;
+        }
 
-      if (url.includes('topstories.json')) {
-        return Promise.resolve({
-          json: () => Promise.resolve([101, 102, 103]),
-        } as unknown as Response);
-      }
+        if (url.includes('topstories.json')) {
+            return Promise.resolve({
+                json: () => Promise.resolve([101, 102, 103]),
+            } as unknown as Response);
+        }
 
-      if (url.includes('item/')) {
-        const id = url.match(/item\/(\d+)\.json/)?.[1] ?? '0';
-        return Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              id: Number(id),
-              title: `Test Story ${id}`,
-              url: `https://example.com/news/${id}`,
-            }),
-        } as unknown as Response);
-      }
+        if (url.includes('item/')) {
+            const id = url.match(/item\/(\d+)\.json/)?.[1] ?? '0';
+            return Promise.resolve({
+                json: () =>
+                    Promise.resolve({
+                        id: Number(id),
+                        title: `Test Story ${id}`,
+                        url: `https://example.com/news/${id}`,
+                        by: `author${id}`,
+                    }),
+                } as unknown as Response);
+            }
 
-      return Promise.reject(new Error('Unknown URL'));
-    }
-  ) as jest.MockedFunction<typeof fetch>;
+            return Promise.reject(new Error('Unknown URL'));
+        }
+    ) as unknown as typeof fetch;
 });
+
 
 afterEach(() => {
   cleanup();
