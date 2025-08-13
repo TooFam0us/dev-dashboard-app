@@ -49,4 +49,3 @@ jobs:
       # 10. Bundle size check
       - name: Check bundle size
         run: npx size-limit
-    
