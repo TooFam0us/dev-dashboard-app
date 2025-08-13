@@ -1,8 +1,8 @@
 export default {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
+    setupFiles: ['whatwg-fetch'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     transform:{
         '^.+\\.(ts|tsx)$': 'ts-jest',
     },
