@@ -1,5 +1,3 @@
-import { transform } from "framer-motion";
-
 export default {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
