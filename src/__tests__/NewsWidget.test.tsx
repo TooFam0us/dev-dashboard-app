@@ -1,43 +1,66 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import NewsWidget from '../components/NewsWidget';
 
 beforeAll(() => {
-  global.fetch = jest.fn((url) => {
-    if (url.toString().includes('topstories.json')) {
-      return Promise.resolve({
-        json: () => Promise.resolve([1, 2, 3]), // Top story IDs
-      }) as any;
-    }
+  // Mock global.fetch
+  global.fetch = jest.fn(
+    (input: RequestInfo, init?: RequestInit) => {
+      // Normalize input to string
+      let url: string;
 
-    if (url.toString().includes('item/')) {
-      const idFromUrl = Number(url.toString().match(/item\/(\d+)/)?.[1]) || 0;
-      return Promise.resolve({
-        json: () =>
-          Promise.resolve({
-            id: idFromUrl,
-            title: `Test Story ${idFromUrl}`,
-            url: `https://example.com/news/${idFromUrl}`,
-          }),
-      }) as any;
-    }
+      if (typeof input === 'string') {
+        url = input;
+      } else if (input instanceof Request) {
+        url = input.url;
+      } else {
+        throw new Error('Unknown input type');
+      }
 
-    return Promise.reject(new Error('Unknown URL'));
-  }) as jest.Mock;
+      if (url.includes('topstories.json')) {
+        return Promise.resolve({
+          json: () => Promise.resolve([101, 102, 103]),
+        } as unknown as Response);
+      }
+
+      if (url.includes('item/')) {
+        const id = url.match(/item\/(\d+)\.json/)?.[1] ?? '0';
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              id: Number(id),
+              title: `Test Story ${id}`,
+              url: `https://example.com/news/${id}`,
+            }),
+        } as unknown as Response);
+      }
+
+      return Promise.reject(new Error('Unknown URL'));
+    }
+  ) as jest.MockedFunction<typeof fetch>;
 });
 
 afterEach(() => {
+  cleanup();
   jest.restoreAllMocks();
   jest.clearAllMocks();
   jest.clearAllTimers();
+
+  (global as any).fetch = undefined;
 });
 
 test('renders news widget with mock data', async () => {
   render(<NewsWidget />);
 
-  // Wait for all mock articles to appear
+  // Wait for all mocked articles to render
   await waitFor(() => {
-    expect(screen.getByText('Test Story 1')).toBeInTheDocument();
-    expect(screen.getByText('Test Story 2')).toBeInTheDocument();
-    expect(screen.getByText('Test Story 3')).toBeInTheDocument();
+    expect(screen.getByText('Test Story 101')).toBeInTheDocument();
+    expect(screen.getByText('Test Story 102')).toBeInTheDocument();
+    expect(screen.getByText('Test Story 103')).toBeInTheDocument();
   });
+
+  // Check that links point to the correct URLs
+  expect(screen.getByText('Test Story 101').closest('a')).toHaveAttribute(
+    'href',
+    'https://example.com/news/101'
+  );
 });
