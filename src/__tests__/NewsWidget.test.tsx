@@ -10,10 +10,10 @@ beforeAll(() => {
 
       if (typeof input === 'string') {
         url = input;
-      } else if (input instanceof Request) {
-        url = input.url;
+      } else if (input instanceof URL) {
+        url = input.toString();
       } else {
-        throw new Error('Unknown input type');
+        url = String(input); // fallback
       }
 
       if (url.includes('topstories.json')) {
