@@ -10,12 +10,18 @@ import jestPlugin from 'eslint-plugin-jest';
 import { globalIgnores } from 'eslint/config';
 
 export default [
-  globalIgnores(['dist', 'node_modules', 'postcss.config.js', 'tailwind.config.js', 'vite.config.js']),
+  globalIgnores([
+    'dist',
+    'node_modules',
+    'postcss.config.js',
+    'tailwind.config.js',
+    'vite.config.js',
+  ]),
   js.configs.recommended,
   {
     files: ['**/*.ts', '**/*.tsx'],
-    settings:{
-      react:{
+    settings: {
+      react: {
         version: 'detect',
       },
     },

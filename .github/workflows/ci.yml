@@ -7,20 +7,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v4
+      # 1. Checkout repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
+          cache: 'npm'
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
+      # 4. Lint
+      - name: Lint
+        run: npm run lint
+
+      # 5. TS type check
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # 6. Build
       - name: Build
         run: npm run build
 
-      - name: Run lint
-        run: npm run lint  
-
+      # 7. Run tests
       - name: Run tests
-        run: npm run test
-    
+        run: npm test -- --ci --passWithNoTests
+
+      # 8. Prettier check
+      - name: Check formatting
+        run: npx prettier --check .
+
+      # 9. Security audit
+      - name: Security audit
+        run: npm audit --audit-level=high || true
+
+      # 10. Bundle size check
+      - name: Check bundle size
+        run: npx size-limit
